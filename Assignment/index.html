@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/login.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
@@ -16,23 +18,23 @@
             <div class="login-header">
                <h1>Login</h1>
             </div>
-            <form>
+            <form id="login-form" method="post" action="products.html">
                <div class="input-box">
                   <label>Username</label>
                   <div class="input-box1">
                      <span class="icon"><i class="fa fa-user"></i></span>
-                     <div class="inputbox"><input type="text" name="username" class="text-box" placeholder="Type your username"></div>
+                     <div class="inputbox"><input type="text" name="username" class="text-box" id="user_name" placeholder="Type your username"></div>
                   </div>
                </div>
                <div class="input-box">
                   <label>Password</label>
                   <div class="input-box1">
                      <span class="icon"><i class="fa fa-lock"></i></span>
-                     <div class="inputbox"><input type="password" name="password" class="text-box" placeholder="Type your Password"></div>
+                     <div class="inputbox"><input type="password" name="password" id="password" class="text-box" placeholder="Type your Password"></div>
                   </div>
                </div>
                <div class="forgot-link"><a href="#">Forgotpassword?</a></div>
-               <div id="submit-button"><input type="submit" value="LOGIN"></div>
+               <div id="submit-button"><input type="submit" value="LOGIN" onclick="checkLogin(this);"></div>
                <div class="plain-text">Or Sign Up Using</div>
                <div id="social-login-box">
                   <a href="" class="social-item social-item1"><i class="fa fa-facebook"></i></a>
@@ -48,5 +50,19 @@
       </div>
    </div>
 </div>
+<script>
+jQuery(document).ready(function() {
+   jQuery("#login-form").validate({
+      rules: {
+         password: 'required',
+         username: {
+            required: true,
+            email: true,//add an email rule that will ensure the value entered is valid email id.
+            maxlength: 55,
+         },
+      }
+   });
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/products.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body class="checkout-page">
+<div class="container">
+ <div class="checkout-block">
+ <section style="width: 100%;">
+ <div class="page-header">
+  <h2>Brand</h2>
+  </div>
+ </section>
+<section class="content-block">
+<div class="section-header">
+<span>Shopping Bag</span>
+<div class="promo-banner">Complimentary gift with every order</div>
+</div>
+<div class="content">
+<div class="checkout-table">
+<div class="table-header">
+ <div class="prod-title title">Products</div><div class="prod-price">Price</div><div class="prod-qty">Qty</div><div class="prod-subtotal">Sub Total</div>
+</div>
+<div class="table-body">
+<div id="pimg"></div><div class="prod-title title" id="ptitle"></div><div class="prod-price" id="pprice"></div>
+<form>
+<div class="prod-qty" id="pqty">
+<select name="qty" id="qty-change">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select></div>
+<input type="hidden" id="price_h">
+</form>
+<div class="prod-subtotal" id="psubtotal"></div>
+</div> 
+</div>
+<div class="subtotal-box">
+ <div class="subtotal"><div class="subtotal-label">Subtotal</div><div class="subtotal-price"></div></div>
+ <div class="shipping"><div class="shipping-label">Shipping</div><div class="shipping-price">10.00</div></div>
+ <div class="estimated"><div class="estimated-label">Estimated Total</div><div class="estimated-price"></div></div>
+ <div class="offercode-block"><div class="offer-input"><input type="text" placeholder="Enter Code" id="offer-code" class="offer-code" required>
+ <span id="offer-error"></span>
+ </div>
+ <div class="offer-submit"><input type="submit" value="Apply Code" id="offer-submit-btn"></div></div>
+</div>
+<div class="checkout-btn-block">
+<div class="checkout-btn-one">&nbsp;</div>
+<div class="checkout-btn-two">
+<input type="submit" value="Checkout" class="btn" id="checkout-btn">
+</div>
+</div>
+</div>
+<div class="sidebar">
+<div class="help-block">
+<h5>Need Help?</h5>
+040-675675<br>
+<ul id="help-links">
+<li><a href="#">FAQ</a></li>
+<li><a href="#">SHIPPING & Handling</a></li>
+<li><a href="#">Returns</a></li>
+<li><a href="#">Maximum Purchase Policy</a></li>
+</ul>
+</div>
+</div>
+
+
+  
+ </section>
+ </div>
+ <!---
+ <div class="popup-checkout" id="popupbox">
+ <div id="checkout-list-box">
+ <div class="checkout-img">
+ </div>
+ <div class="checkout-prod-details">
+ 
+ </div>
+ <div class="">
+ </div>
+ <div></div>
+ <div><button>Checkout</button></div>
+ </div>
+</div>-->
+</div>
+
+<script>
+var price = parseInt(localStorage.getItem("price"));
+ //price = price.toFixed(2);
+var title = localStorage.getItem("title");
+var imgUrl = localStorage.getItem("imgUrl");
+//var price = localStorage.getItem("price");
+$(document).ready(function(){
+  $("#pimg").append("<img src="+imgUrl+" width='60' height='60'>");
+  $("#ptitle").append(title);
+  $("#pprice").append(price);
+  $("#price_h").val(price);
+  //$("#pqty").append("1");
+  $("#psubtotal").append(price);
+  $(".subtotal-price").append(price);
+  var Estimated_total = price + 10;
+  //Estimated_total = Estimated_total.toFixed(2);
+  $(".estimated-price").html(Estimated_total);
+  
+  $("#qty-change").on("change", function(e) {
+  $(".subtotal-price").empty();
+  let totalAmout = 0;
+   let qty = parseInt($(this).val());
+   let price1 = parseInt($("#price_h").val());
+    totalAmout = (qty * price1) + 10;
+	$(".estimated-price").empty();
+	$(".subtotal-price").append(totalAmout);
+   $(".estimated-price").append(totalAmout);
+   $( "#offer-submit-btn" ).trigger( "click" );
+   $("#offer-error").css("display", "none");
+   
+  });
+  $("#offer-submit-btn").on("click", function() {
+   let offer = $("#offer-code").val();
+   if(offer == null || offer ==""){
+   $("#offer-error").css("display", "block");
+   $("#offer-error").empty();
+   $("#offer-error").append("Please Enter Offer Code");
+   
+   }else if(offer == "WEL5"){
+   $("#offer-error").empty();
+   let oprice = parseInt($("#price_h").val());
+   let oqty = parseInt($("#qty-change").val());
+   let oshipping = 10;
+   let offer_per = 5;
+   let offer_total =  (oprice * oqty)+10;
+   //console.log(offer_total);
+   let offer_percentage = (offer_total)*(5/100);
+   //console.log(offer_percentage);
+   let offer_total_price = offer_total - offer_percentage;
+   $(".estimated-price").empty();
+   $(".estimated-price").append(offer_total_price);
+   
+   
+   }else{
+   $("#offer-error").css("display", "block");
+    $("#offer-error").empty();
+	$("#offer-error").append("Invalid offer Code");
+   }
+  });
+  
+  $("#checkout-btn").on("click", function() {
+    window.location.href="completed.html"
+  });
+  
+});
+</script>
+</body>
+</html>

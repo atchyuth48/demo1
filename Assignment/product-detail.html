@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/products.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+<div class="container product-detail">
+ <div class="products-block">
+ <section style="width: 100%;">
+ <div class="page-header">
+  <h2>Brand</h2>
+  </div>
+ </section>
+<section class="content-block">
+ <div class="products-list">
+  <div class="product-detail-box-one">
+  <div class="product-detail-img">
+  </div>
+  </div>
+  
+  <div class="product-detail-box-two">
+  <div class="product-details-content">
+  <div class="product-detail-title-box"><h4 id="product-detail-title"></h4></div>
+  <span id="product-detail-price"></span>
+  <div class="product-detail-features">
+  <h4>Features:</h4>
+  <ul id="prod-features">
+  <li>16 GB RAM, 1 HDD</li>
+  <li>i7 11th Generation</li>
+  <li>14 inch OLED touch screen</li>
+  <li>4 hrs battery</li>
+  <li>250 SDD</li>
+  <li>Window 10 with pre installed MS office</li>
+  <li>Window 10 with life time activation</li>
+  </ul>
+  </div>
+  <div class="product-detail-btn"><input type="submit" class="add-cart btn" id="add-cart" value="Add to Bag"></div>
+  </div>
+  </div>
+  
+ </div> 
+ </section>
+ </div>
+ <div class="popup-checkout" id="popupbox">
+ <div id="checkout-list-box">
+ <div class="checkout-img">
+ </div>
+ <div class="checkout-prod-details">
+ 
+ </div>
+ <div class="">
+ </div>
+ <div></div>
+ <div><button>Checkout</button></div>
+ </div>
+</div>
+</div>
+
+<script>
+var price = parseInt(localStorage.getItem("price"));
+ //price = price.toFixed(2);
+var title = localStorage.getItem("title");
+var imgUrl = localStorage.getItem("imgUrl");
+//console.log(imgUrl);
+$(".product-detail-img").append("<img src="+imgUrl+" alt='prod details'>");
+$("#product-detail-title").append(title);
+$("#product-detail-price").append("$ "+price);
+$(document).ready(function(){
+ $("#add-cart").on("click", function() {
+  if(price != null || price != "" && title != null || title != ""){
+    window.location.href="checkout.html"
+  }else{
+  }
+ });
+  
+});
+</script>
+</body>
+</html>
